@@ -8,3 +8,6 @@ I’m a Sports Analytics student with a passion for using data to understand the
 
 As I continue learning, I’m focused on exploring different areas of data science and discovering where my skills and interests can take me. My goal is to work in professional sports analytics, while remaining open to opportunities beyond the sports industry. I pride myself on being reliable, collaborative, and detail-oriented, while approaching new challenges with curiosity and authenticity.
 
+## Portfolio
+- [Blog](blog.md)
+- [Projects](projects.md)
