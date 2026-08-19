@@ -9,4 +9,5 @@ Because of that, I think there are responsibilities that come with using data ab
 
 Through this course, I hope to better understand how data science can be used to study real-world social questions while still considering the people behind the data. I’m especially interested in learning how different fields can work together to provide a better understanding of complex problems. Ultimately, I want to become someone who can not only find patterns and answer questions with data, but also understand the responsibility that comes with doing so.
 
-
+#AI Assistance
+I used ChatGPT as a writing and reflection aid while creating this blog post. I provided my own ideas, experiences, and responses to the questions, and used AI to help organize those ideas, improve clarity, and check grammar and wording. I reviewed the final version and made sure that the content reflected my own thoughts and understanding.
