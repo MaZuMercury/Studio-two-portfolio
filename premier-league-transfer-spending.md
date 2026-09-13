@@ -181,7 +181,7 @@ Nowland, J., & Sankara, J. (2024). New players? New managers? New stadiums? Whic
 
 The full Python notebook used for this analysis is available here:
 
-[View the Project 1 Notebook](Project1.ipynb)
+[View the Project 1 Notebook](https://github.com/MaZuMercury/Studio-two-portfolio/blob/main/Project1.ipynb)
 
 ---
 
