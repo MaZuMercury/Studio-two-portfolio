@@ -2,7 +2,6 @@
 layout: default
 title: Caden Astudillo
 ---
-[Home](index.md) | [Projects](projects.md) | [Blog](blog.md) | [Contact](contact.md) | [Resume](resume.pdf) | [LinkedIn](https://www.linkedin.com/in/caden-astudillo-6b4bb2385/)
 
 # Caden Astudillo
 Sports Analytics Student  
