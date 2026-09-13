@@ -3,9 +3,8 @@ layout: default
 title: Caden Astudillo
 ---
 
-# Caden Astudillo
-Sports Analytics Student  
-UNC Charlotte
+
+
 ## About Me
 Welcome to my Data Science Studio portfolio.
 
