@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+
+  <title>{{ page.title }} | Caden Astudillo</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
+</head>
+
+<body>
+
+  <header>
+    <div class="wrapper">
+      <h1><a href="{{ '/' | relative_url }}">Caden Astudillo</a></h1>
+
+      <p>Sports Analytics Student | UNC Charlotte</p>
+
+      <nav>
+        <a href="{{ '/' | relative_url }}">Home</a> |
+        <a href="{{ '/projects' | relative_url }}">Projects</a> |
+        <a href="{{ '/blog' | relative_url }}">Blog</a> |
+        <a href="{{ '/contact' | relative_url }}">Contact</a> |
+        <a href="{{ '/resume.pdf' | relative_url }}">Resume</a> |
+        <a href="https://www.linkedin.com/in/caden-astudillo-6b4bb2385/">LinkedIn</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrapper">
+    {{ content }}
+  </main>
+
+</body>
+</html>
