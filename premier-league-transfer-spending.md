@@ -1,8 +1,7 @@
 ---
-
 layout: default
 title: Transfer Spending & Premier League Success
--------------------------------------------------
+---
 
 # ⚽ Transfer Spending & Premier League Success
 
@@ -175,6 +174,14 @@ Abdul, A., Chattopadhyay, A. K., & Jain, S. (2025). The impact of foreign player
 Matesanz, D., Holzmayer, F., & Torgler, B. (2018). Transfer market activities and sportive performance in European first football leagues: A dynamic network approach. *PLOS ONE, 13*(12), e0209362. https://doi.org/10.1371/journal.pone.0209362
 
 Nowland, J., & Sankara, J. (2024). New players? New managers? New stadiums? Which investments drive football club performance? *Sport, Business and Management: An International Journal, 14*(4), 540–556. https://doi.org/10.1108/SBM-10-2023-0124
+
+--- 
+
+## Code
+
+The full Python notebook used for this analysis is available here:
+
+[View the Project 1 Notebook](Project1.ipynb)
 
 ---
 
