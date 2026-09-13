@@ -1,4 +1,14 @@
+---
+layout: default
+title: Blog
+---
+
 # Blog
-Throughout this course, I will write posts about data science topics I am interested in.
-## Blog 1
-[Blog1](blog/blog1.md)
+
+Welcome to my blog.
+
+Here I'll share projects, things I've learned through my coursework, and topics that interest me in sports analytics and data science.
+
+## Coming Soon
+
+More posts coming soon.
