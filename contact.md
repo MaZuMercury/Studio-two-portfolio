@@ -12,4 +12,4 @@ title: Contact
 
 **GitHub:** [My GitHub](https://github.com/MaZuMercury)
 
-**Resume:** [View my Resume](resume.pdf)
+**Resume:** [View my Resume](CadenNewResume.pdf)
