@@ -133,7 +133,7 @@ This means that teams that spend more money generally tend to earn more points, 
 
 ---
 
-## What We Found
+## What I Found
 
 The results show that there is a small positive relationship between transfer spending and league success. Teams that spent more money on transfers generally earned more points, but spending alone did not strongly explain how successful a team was.
 
@@ -153,7 +153,7 @@ Another limitation is that the transfer spending data includes transfers made du
 
 The data also covers only six seasons, so different teams and different circumstances can affect the results from one season to another.
 
-There are also limitations with the data sources. Transfermarkt is a secondary source, meaning the transfer information was collected and reported by another organization rather than directly from the clubs. Transfer fees may also be reported differently depending on the source.
+There are also limitations with the data sources. Transfermarkt is a secondary source, meaning the transfer information was collected and reported by another organization rather than directly from the clubs. Transfer fees may also be reported differently depending on the source. I also checked Transfermarkt's robots.txt before scraping, which currently allows general user agents to access the site. I limited the scraping to the six seasons needed for this project rather than making excessive requests.
 
 Finally, the results only show a relationship between spending and success. They do not prove that spending more money causes a team to perform better. A club could spend a lot and still perform poorly, while another club could spend less and have a successful season.
 
