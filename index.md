@@ -6,7 +6,7 @@ title: Caden Astudillo
 
 ## Welcome to My Portfolio
 
-I'm a Sports Analytics student interested in using data to better understand sports and find meaningful patterns in the numbers. This portfolio highlights some of the projects I've worked on throughout my coursework and my continued development as a sports analtyics data science student.
+I'm a Sports Analytics student interested in using data to better understand sports and find meaningful patterns in the numbers. This portfolio highlights some of the projects I've worked on throughout my coursework and my continued development as a sports analytics data science student.
 
 ---
 
