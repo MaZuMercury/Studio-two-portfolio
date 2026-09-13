@@ -1,3 +1,8 @@
+---
+layout: default
+title: Caden Astudillo
+---
+
 # Caden Astudillo
 Sports Analytics Student  
 UNC Charlotte
