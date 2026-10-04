@@ -263,7 +263,7 @@ Transfermarkt. (n.d.). *Premier League transfer data*. https://www.transfermarkt
 
 The complete Python notebook containing the data collection, preparation, modeling, evaluation, and visualizations is available below.
 
-**[View the Project 2 Jupyter Notebook](Project2.ipynb)**
+**[View the Project 2 Jupyter Notebook](Project-2.ipynb)**
 
 ### AI Usage Disclosure
 
