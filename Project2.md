@@ -5,266 +5,385 @@ title: Premier League Goal Difference Prediction
 
 # ⚽ Predicting Premier League Goal Difference
 
-## Problem Definition
+## 1. Problem Definition
 
 ### Research Question
 
 **Can transfer spending and previous-season team performance predict a club's goal difference in the following Premier League season?**
 
-This project examines whether transfer expenditure and previous-season performance can be used to predict how well a Premier League club will perform in the following season. The target variable is **Target Goal Difference**, calculated as goals scored minus goals conceded during the following season.
+The goal of this project is to determine whether transfer expenditure and previous-season performance can be used to predict how well a Premier League club will perform in terms of goal difference in the following season.
 
-This is a **regression problem** because the target is a continuous numerical value rather than a category. A positive goal difference indicates that a club scored more goals than it conceded, while a negative goal difference indicates the opposite.
+This is a **supervised regression problem** because the target variable, `Target_Goal_Difference`, is a continuous numerical value.
 
-This type of model could be useful to sports analysts, clubs, coaches, and researchers who want to understand which factors provide useful information about future team performance. However, the model is intended as an analytical tool rather than a standalone system for making real-world decisions.
+The model predicts a club's goal difference in the target season, calculated as:
 
-## Background and Context
+**Goal Difference = Goals Scored − Goals Conceded**
 
-## Background and Context
+The intended audience includes sports analysts, football researchers, clubs, and anyone interested in understanding how financial investment and previous performance relate to future team success.
 
-Transfer spending is one of the most visible ways that professional soccer clubs attempt to improve their squads. Premier League clubs spend substantial amounts of money acquiring players, but spending more does not automatically guarantee better results. This makes transfer expenditure an interesting variable to examine when trying to understand and predict future team performance.
+---
 
-Agha et al. (2024) examined different types of investment in football clubs and their relationship with subsequent sporting performance. Their work provides support for considering previous investment as a potential predictor of future performance. This is particularly relevant to this project because the model uses previous-season transfer expenditure rather than transfer spending from the same season being predicted.
+## 2. Background and Context
 
-Transfer spending is also particularly relevant in the Premier League because clubs have substantial differences in their financial resources. Burdekin and Franklin (2015) examined transfer spending in the English Premier League and discussed the differences between clubs with greater and more limited financial resources. Their research provides context for investigating whether differences in transfer expenditure are associated with differences in on-field performance.
+Transfer spending is one of the most visible forms of investment made by professional football clubs. Clubs spend large amounts of money on players with the expectation that these additions will improve future performance. However, spending more does not necessarily guarantee better results.
 
-To measure team performance, this project uses **goal difference** as the target variable. Goal difference represents the difference between goals scored and goals conceded and provides information about how strongly a team performed over the course of a season. McHale and Scarf (2020) examined methods for evaluating English Premier League team performance and provide an academic basis for using goal difference as an important measure of team performance.
+Previous research has examined the relationship between investment and football performance. Agha et al. (2024) investigate how different forms of investment, including player and managerial investment, relate to subsequent football club performance. Their work provides support for examining transfer investment as a potential predictor of future performance.
 
-Together, these studies provide the foundation for the research question. Previous research suggests that investment can be related to subsequent football performance, transfer spending is an important feature of the competitive environment in the Premier League, and goal difference provides a meaningful measure of team performance. This project builds on those ideas by testing whether **previous transfer expenditure and previous-season performance can predict a club's goal difference in the following Premier League season**.
+Burdekin and Franklin (2015) examine transfer spending in the English Premier League and highlight differences in spending between clubs. Their research provides additional context for understanding the financial environment surrounding Premier League transfers.
 
+Goal difference is also a useful measure of team performance because it captures both offensive and defensive results rather than only wins or points. McHale and Scarf (2020) demonstrate the usefulness of goal-based performance measures when evaluating Premier League teams.
 
-## Data Description
+Based on this research, this project examines whether transfer spending and previous-season performance provide useful information for predicting a club's goal difference in the following Premier League season.
 
-The project combines Premier League match data from **Football-Data.co.uk** with transfer expenditure data from **Transfermarkt**. The data covers the 2019–20 through 2024–25 Premier League seasons.
+---
 
-Football-Data.co.uk provides individual match results. Each match represents one observation in the original match-level dataset. These results were aggregated by club and season to calculate:
+## 3. Data Description
+
+The project combines Premier League match results with transfer expenditure data.
+
+### Data Sources
+
+* **Football-Data.co.uk** — Premier League match results and match statistics
+* **Transfermarkt** — transfer expenditure information
+
+The analysis covers Premier League seasons from **2019–20 through 2024–25**.
+
+The original dataset contained **120 club-season observations**, representing 20 clubs across each of six seasons.
+
+The match results were aggregated to calculate:
 
 * League points
 * Goals scored
 * Goals conceded
 * Goal difference
+* Final league position
 
-Transfermarkt provides club-level transfer expenditure for each Premier League season.
+Transfer expenditure was then combined with these performance measures using standardized club names and season information.
 
-The original datasets contain 120 club-season observations for the six seasons, representing 20 Premier League clubs per season. To create the prediction dataset, each club's previous-season information was matched with its performance during the following season.
+### Prediction Dataset
 
-After creating these chronological predictor-target pairs, the modeling dataset contained **85 observations**, representing 17 clubs across five target seasons. The reduction from 120 observations occurs because a club must have information from both a previous season and a following season in order to be included in the prediction dataset.
+To make the prediction meaningful, predictors from one season were matched with the target performance from the **following season**.
 
-The target variable is:
+After creating these chronological relationships and removing observations that could not be matched with both a previous and following season, the final modeling dataset contained **85 observations**.
 
-**Target_Goal_Difference** — the club's goal difference during the following Premier League season.
+These observations represent **17 clubs across five target seasons**, from 2020–21 through 2024–25.
 
-The final predictor variables were:
+### Target Variable
 
-* **Transfer_Expenditure** — previous-season transfer expenditure, measured in millions of euros.
-* **Previous_League_Points** — league points earned during the previous season.
-* **Previous_Goal_Difference** — goal difference from the previous season.
+`Target_Goal_Difference`
+
+This represents the club's goal difference during the following Premier League season.
+
+### Predictor Variables
+
+The final model uses three predictors:
+
+* `Transfer_Expenditure`
+* `Previous_League_Points`
+* `Previous_Goal_Difference`
 
 There were no missing values in the variables used for the final modeling dataset.
 
-### Data Sources
+---
 
-* [Football-Data.co.uk](https://www.football-data.co.uk/)
-* [Transfermarkt](https://www.transfermarkt.com/)
+## 4. Data Understanding and Exploration
 
-## Data Understanding and Exploration
+Before building the models, I examined relationships between the available variables using correlation analysis and visualizations.
 
-Before modeling, I examined the relationships between the available variables and the target variable using correlation analysis and a correlation heatmap.
+The target variable had the strongest correlation with previous-season goal difference:
 
-Previous-season performance variables showed stronger relationships with future goal difference than transfer expenditure. The correlations with the target were:
+| Variable                 | Correlation with Target Goal Difference |
+| ------------------------ | --------------------------------------: |
+| Previous Goal Difference |                                   0.693 |
+| Previous Goals Scored    |                                   0.678 |
+| Previous League Points   |                                   0.650 |
+| Transfer Expenditure     |                                   0.348 |
+| Previous Goals Conceded  |                                  -0.511 |
 
-* Previous Goal Difference: **0.693**
-* Previous League Points: **0.650**
-* Transfer Expenditure: **0.348**
+These results suggest that previous team performance has a stronger relationship with future goal difference than transfer expenditure alone.
 
-These results suggest that previous-season performance provides more information about future goal difference than transfer expenditure in this dataset.
+Transfer expenditure still showed a positive relationship with the target, but the relationship was considerably weaker.
 
-Transfer expenditure still showed a positive relationship with future goal difference, but the relationship was considerably weaker than the relationships involving previous performance.
+### Multicollinearity
 
-The predictor variables also showed strong relationships with one another. In particular, Previous League Points and Previous Goal Difference had a correlation of approximately **0.953**. This indicated that the two variables contain substantial overlapping information.
+I also examined correlations between the predictor variables and calculated Variance Inflation Factors (VIF).
 
-Variance Inflation Factor (VIF) analysis was used to investigate this multicollinearity. After removing other redundant performance variables, Previous League Points and Previous Goal Difference still had VIF values of approximately **10.85** and **10.90**, respectively.
+Previous league points and previous goal difference were highly correlated:
 
-I chose to retain both variables because they represent related but different aspects of previous-season performance. League points measure results using the Premier League scoring system, while goal difference measures the difference between goals scored and goals conceded. However, the high VIF values mean that individual Linear Regression coefficients for these variables should be interpreted cautiously.
+* Previous League Points ↔ Previous Goal Difference: **0.953**
 
-## Data Preparation and Feature Selection
+After reducing redundant variables, the remaining VIF values were:
 
-The original match-level data was transformed into club-season observations. For each club and season, I calculated league points, goals scored, goals conceded, and goal difference.
+| Predictor                |   VIF |
+| ------------------------ | ----: |
+| Transfer Expenditure     |  1.06 |
+| Previous League Points   | 10.85 |
+| Previous Goal Difference | 10.90 |
 
-The transfer data required additional cleaning because club names were not always formatted consistently between the data sources. Club names were standardized so that the two datasets could be merged correctly.
+The high VIF values indicate substantial multicollinearity between previous league points and previous goal difference. I retained both variables because they represent different aspects of team performance and the project compares both a linear model and a Random Forest model.
 
-The data was then organized chronologically. For each club, information from one season was used as the predictor information for the following season's goal difference.
+Because of this multicollinearity, the coefficients of the linear regression model should be interpreted cautiously.
 
-For example, information from the 2023–24 season was used to predict a club's goal difference during the 2024–25 season.
+---
 
-The final three features were selected based on their relevance to the research question and their relationship with the target:
+## 5. Data Preparation and Feature Selection
 
-1. Transfer Expenditure
-2. Previous League Points
-3. Previous Goal Difference
+The data required several preparation steps before modeling.
 
-Other variables, such as previous goals scored and goals conceded, were excluded from the final model because they were highly correlated with the selected performance variables and would add additional multicollinearity.
+First, club names were standardized so that transfer and performance datasets could be correctly matched.
 
-No categorical encoding or feature scaling was necessary because all final predictors were numerical.
+Next, match-level results were aggregated into season-level team statistics. League points, goals scored, goals conceded, and goal difference were calculated for each club and season.
 
-### Training and Testing Strategy
+The datasets were then organized chronologically so that each club's previous-season information was used to predict its performance in the following season.
 
-The data was divided chronologically rather than randomly. The target seasons from **2020–21 through 2023–24** were used for training, while **2024–25** was held out as the test set.
+For example, a club's performance during the 2022–23 season was used as a predictor for its target goal difference during the 2023–24 season.
 
-This resulted in:
+This chronological structure was important for preventing **data leakage**. Information from the target season was not used to predict that same season.
 
-* **68 training observations**
-* **17 test observations**
+The final predictors were selected based on their relevance to the research question and the exploratory analysis.
 
-A chronological split was selected because the goal is to predict future performance. Randomly mixing observations from different seasons could allow information from later seasons to influence the training process and would not reflect how the model would actually be used.
+No categorical encoding was required because the final modeling variables were numerical. Feature scaling was also not necessary for the models used in this project.
 
-Using the 2024–25 season as a held-out test set also provides a more realistic evaluation of how the model performs on a future season.
+---
 
-## Baseline and Model Development
+## 6. Baseline and Model Development
 
-A **Mean Baseline** was established before training the machine-learning models. The baseline predicts the same value for every test observation using the average target goal difference from the training data.
+Before training machine-learning models, I created a simple baseline model that predicts the mean goal difference from the training data for every test observation.
 
-The baseline prediction was approximately **5.47 goals**.
+The mean training goal difference was approximately:
 
-Two regression models were then developed:
+**5.47**
+
+The baseline produced:
+
+* **MAE:** 13.211
+* **RMSE:** 16.810
+* **R²:** -0.046
+
+This baseline provides a reference point for determining whether the machine-learning models provide useful predictive information.
 
 ### Linear Regression
 
-Linear Regression was selected because it provides an interpretable way to estimate the relationship between the three predictors and future goal difference. The model produces coefficients that show the direction and estimated magnitude of each predictor's relationship with the target while holding the other predictors constant.
+The first machine-learning model was a **Linear Regression** model.
 
-### Random Forest Regression
+The model produced:
 
-Random Forest Regression was selected as a second model because it can capture nonlinear relationships and interactions that a simple linear model may not capture. Using a different modeling approach provides a useful comparison with Linear Regression.
+* **MAE:** 13.730
+* **RMSE:** 15.675
+* **R²:** 0.090
 
-The Random Forest model used **200 trees** with a fixed random state of 42 to make the results reproducible.
+The coefficients were:
 
-Both models were trained using the same training data and evaluated on the same held-out 2024–25 test set.
-
-## Model Evaluation and Selection
-
-The models were evaluated using **Mean Absolute Error (MAE), Root Mean Squared Error (RMSE), and R²**.
-
-**MAE** measures the average absolute difference between the predicted and actual values. Lower values indicate better performance.
-
-**RMSE** measures the square root of the average squared prediction error. Because larger errors are squared before averaging, RMSE places more emphasis on large prediction mistakes. Lower values are better.
-
-**R²** measures how much of the variation in the target is explained by the model relative to a baseline. Higher values indicate better performance, while a negative R² indicates that the model performs worse than simply predicting the mean of the training target.
-
-### Model Results
-
-| Model             |        MAE |       RMSE |        R² |
-| ----------------- | ---------: | ---------: | --------: |
-| Mean Baseline     |     13.211 |     16.810 |    -0.046 |
-| Linear Regression | **13.730** | **15.675** | **0.090** |
-| Random Forest     |     14.565 |     17.223 |    -0.098 |
-
-Linear Regression was selected as the preferred model because it achieved the **lowest RMSE (15.675)** and the **highest R² (0.090)**.
-
-There is an important tradeoff between the metrics. The Mean Baseline had a slightly lower MAE than Linear Regression, meaning its average absolute error was slightly smaller. However, Linear Regression performed better on RMSE and R². Because RMSE places greater emphasis on larger prediction errors and R² provides information about the amount of variation explained by the model, Linear Regression was selected as the strongest overall model.
-
-Random Forest performed worse than both alternatives across all three metrics.
-
-## Model Interpretation and Insights
-
-The Linear Regression coefficients were:
-
-| Feature                  | Coefficient |
+| Predictor                | Coefficient |
 | ------------------------ | ----------: |
 | Transfer Expenditure     |       0.078 |
 | Previous League Points   |       0.268 |
 | Previous Goal Difference |       0.524 |
 
-All three coefficients were positive, meaning that higher values of each predictor were associated with higher predicted future goal difference when the other variables were held constant.
+All three coefficients were positive, indicating that higher values of these predictors were associated with higher predicted future goal difference while holding the other predictors constant.
 
-The Transfer Expenditure coefficient suggests that an additional €1 million in previous-season transfer expenditure was associated with approximately **0.078 additional goals of predicted future goal difference**, holding the other predictors constant.
+The transfer expenditure coefficient suggests that an additional €1 million in transfer expenditure was associated with approximately a **0.078 increase in predicted goal difference**, holding the other variables constant.
 
-Previous Goal Difference had the largest coefficient, followed by Previous League Points. However, because Previous League Points and Previous Goal Difference had high VIF values, these individual coefficients should not be interpreted as completely independent effects.
+This should not be interpreted as a causal effect. The model identifies an association within the dataset rather than demonstrating that spending directly causes an increase in goal difference.
 
-The Random Forest produced a similar overall conclusion about the importance of previous performance. Its feature importance scores were:
+### Random Forest
 
-* Previous Goal Difference: **0.394**
-* Previous League Points: **0.361**
-* Transfer Expenditure: **0.245**
+The second model was a **Random Forest Regressor** using 200 trees.
 
-This means that the Random Forest relied more heavily on previous-season performance variables than on transfer expenditure when making predictions.
+The Random Forest produced:
 
-These results provide consistent evidence across both models that previous-season performance contains more predictive information about future goal difference than transfer expenditure in this dataset.
+* **MAE:** 14.565
+* **RMSE:** 17.223
+* **R²:** -0.098
+
+Random Forest was included because it can model nonlinear relationships and interactions between predictors without assuming a strictly linear relationship.
+
+---
+
+## 7. Model Evaluation and Selection
+
+The three approaches were evaluated using Mean Absolute Error (MAE), Root Mean Squared Error (RMSE), and R².
+
+| Model             |    MAE |       RMSE |        R² |
+| ----------------- | -----: | ---------: | --------: |
+| Mean Baseline     | 13.211 |     16.810 |    -0.046 |
+| Linear Regression | 13.730 | **15.675** | **0.090** |
+| Random Forest     | 14.565 |     17.223 |    -0.098 |
+
+### Evaluation Metrics
+
+**MAE** measures the average absolute difference between predicted and actual goal difference. Lower values indicate smaller average errors.
+
+**RMSE** also measures prediction error but gives greater weight to larger errors. Lower values are better.
+
+**R²** measures how much variation in the target variable is explained by the model. Higher values are better, with a value of 0 indicating performance comparable to predicting the mean.
+
+### Model Selection
+
+I selected **Linear Regression** as the strongest overall model.
+
+It produced the lowest RMSE and the highest R² among the three approaches. However, the mean baseline had a slightly lower MAE than Linear Regression.
+
+This means that Linear Regression did not outperform the baseline on every metric, but it provided the strongest overall combination of predictive performance based on RMSE and R².
+
+The relatively low R² also indicates that the models explain only a limited amount of the variation in future goal difference.
+
+---
+
+## 8. Model Interpretation and Insights
+
+The results suggest that **previous-season team performance was more informative than transfer expenditure** when predicting future goal difference.
+
+In the Linear Regression model, previous goal difference had the largest coefficient:
+
+**Previous Goal Difference: 0.524**
+
+Transfer expenditure had a smaller coefficient:
+
+**Transfer Expenditure: 0.078**
+
+The Random Forest feature importance results showed a similar pattern:
+
+| Feature                  | Importance |
+| ------------------------ | ---------: |
+| Previous Goal Difference |      0.394 |
+| Previous League Points   |      0.361 |
+| Transfer Expenditure     |      0.245 |
+
+This provides consistent evidence across the two models that previous team performance contained more predictive information than transfer expenditure.
+
+However, transfer spending still contributed information to the models. Its positive relationship with future goal difference suggests that financial investment may be related to future performance, but the relationship is not strong enough in this dataset to make transfer expenditure a highly accurate standalone predictor.
 
 ### Prediction Error Analysis
 
-I also examined the individual predictions made by the Linear Regression model for the 2024–25 season.
+I also examined individual predictions from the Linear Regression model.
 
-Some clubs had relatively small prediction errors, while others had much larger differences between their predicted and actual goal differences. The largest errors included Manchester City, Tottenham, Nottingham Forest, Manchester United, and Brentford.
+Some of the largest prediction errors occurred for clubs such as:
 
-The actual-versus-predicted plot showed that several observations were substantially separated from the ideal prediction line. The residual plot also showed that prediction errors varied considerably between clubs.
+* Manchester City
+* Tottenham
+* Nottingham Forest
+* Manchester United
+* Brentford
 
-These errors suggest that the three selected predictors do not capture all of the factors that influence changes in team performance from one season to the next.
+For example, Manchester City's actual goal difference was **+28**, while the model predicted approximately **+55.35**.
 
-Factors such as managerial changes, injuries, player departures and arrivals, tactics, squad quality, and fixture difficulty could help explain some of these unexpected changes.
+Nottingham Forest had an actual goal difference of **+12**, while the model predicted approximately **-11.22**.
 
-## Limitations, Ethics, and Reflection
+These errors demonstrate that previous performance and transfer spending cannot fully capture the factors that influence a team's performance from one season to the next.
 
-There are several important limitations to this analysis.
+Factors such as injuries, manager changes, tactical changes, squad composition, player development, and fixture difficulty could contribute to these unexpected results.
 
-First, the final modeling dataset contains only **85 club-season observations**, with just **17 observations in the held-out test season**. This is a relatively small sample for machine learning, so the results may not generalize to other Premier League seasons.
+---
 
-Second, transfer expenditure is an imperfect measure of squad improvement. Spending more money does not necessarily mean that a club acquired better players, and transfer expenditure does not account for player quality, wages, injuries, or how well new players fit into a team's tactics.
+## 9. Limitations, Ethics, and Reflection
 
-Third, the model does not include several factors that could have a substantial impact on future performance. These include managerial changes, injuries, squad continuity, player-level performance, tactical changes, and fixture difficulty.
+There are several limitations to this analysis.
 
-There is also potential bias created by the limited time period and the focus on Premier League clubs. The results may not apply to lower divisions, other countries, or leagues with different financial structures.
+### Small Sample Size
 
-The high multicollinearity between Previous League Points and Previous Goal Difference is another limitation. Although both variables were retained because they represent different measures of previous performance, their strong relationship makes it difficult to interpret their individual regression coefficients independently.
+The final modeling dataset contains only **85 observations**. This is a relatively small sample for machine-learning applications and limits how confidently the results can be generalized.
 
-Prediction errors also have to be considered when thinking about real-world use. A club analyst using this model could incorrectly expect a team to improve or decline based on the model's prediction. Because of this, the model should be viewed as an additional analytical tool rather than a system that should independently determine recruitment, financial, or coaching decisions.
+### Limited Predictors
 
-This model would be more useful as part of a larger analytical process that incorporates additional information about players, teams, and the circumstances surrounding each season.
+The models only use transfer expenditure and previous-season performance. Football performance depends on many additional factors, including:
+
+* Injuries
+* Managerial changes
+* Player quality
+* Squad depth
+* Tactical systems
+* Fixture difficulty
+* Player development
+* Squad continuity
+* Transfer quality rather than transfer cost
+
+These omitted variables may explain some of the prediction errors.
+
+### Transfer Spending Does Not Equal Transfer Quality
+
+Transfer expenditure measures how much clubs spend, but it does not measure whether the players acquired were good fits for the team.
+
+A club could spend heavily on players who underperform, while another club could make relatively inexpensive transfers that have a large positive impact.
+
+### Multicollinearity
+
+Previous league points and previous goal difference were highly correlated. This makes individual Linear Regression coefficients more difficult to interpret because the predictors contain overlapping information.
+
+### Ethical Considerations
+
+This type of model could potentially be used by clubs or analysts to support decisions about transfers and team planning. However, the model should not be treated as a definitive decision-making tool.
+
+Incorrect predictions could lead analysts to overestimate or underestimate a team's expected performance. Because the model has limited predictive power, its results should be combined with domain knowledge and additional information rather than being used on their own.
 
 ### Future Improvements
 
-Future versions of the project could improve the model by incorporating:
+A stronger version of this project could include additional seasons and more detailed variables such as:
 
-* Player-level performance statistics
 * Expected goals (xG)
-* Injuries and player availability
-* Managerial changes
+* Player-level performance
+* Squad age
+* Injuries
+* Manager changes
+* Player wages
+* Transfer quality
 * Squad continuity
 * Fixture difficulty
-* Player wages
-* Transfer quality rather than expenditure alone
-* More Premier League seasons
-* Additional regression or ensemble models
-* Hyperparameter tuning and cross-validation
 
-These additions could help the model capture factors that are not represented by transfer expenditure and previous-season performance alone.
+Cross-validation and hyperparameter tuning could also be used to evaluate whether the models generalize better to unseen data.
 
-## Conclusion
+---
 
-Overall, transfer expenditure showed a **positive but limited relationship** with future Premier League goal difference. Previous-season performance had stronger relationships with future performance and was more influential in both machine-learning models.
+## 10. Code and Transparency
 
-Linear Regression was selected as the preferred model because it produced the lowest RMSE and highest R² on the held-out 2024–25 test season. However, the model's R² of 0.090 shows that the three selected predictors explain only a small portion of the variation in future goal difference.
+The complete Python analysis and modeling process is available in the project notebook.
 
-The results therefore suggest that transfer spending can provide some predictive information, but **previous-season performance is more useful for predicting future goal difference within this dataset and modeling approach**.
+**[View the Project 2 Notebook](Project-2.ipynb)**
 
-Most importantly, these results should not be interpreted as evidence that transfer spending directly causes better performance. The analysis identifies predictive relationships and associations, not causal effects.
+The notebook includes:
+
+* Data collection
+* Data cleaning
+* Feature engineering
+* Exploratory analysis
+* Correlation and VIF analysis
+* Train/test splitting
+* Baseline modeling
+* Linear Regression
+* Random Forest
+* Model evaluation
+* Feature importance
+* Prediction error analysis
+
+### Data Sources
+
+* Football-Data.co.uk — Premier League match results
+* Transfermarkt — transfer expenditure data
+
+### AI Transparency
+
+Generative AI tools were used as a supporting resource during development of this project. AI assistance was used for explanations, debugging, organization, and clarification of Python and machine-learning concepts. The analysis, modeling decisions, interpretation of results, and final conclusions were reviewed and completed by me.
+
+---
 
 ## References
 
-Agha, N., Nowland, J., & Sankara, J. (2024). New players? New managers? New stadiums? Which investments drive football club performance? *Sport, Business and Management: An International Journal, 14*(4), 540–556.
 
-Burdekin, R. C. K., & Franklin, M. (2015). Transfer spending in the English Premier League: The haves and the have nots. *Applied Economics Letters, 22*(11), 897–902.
+Nowland, J., & Sankara, J. (2024). New players? New managers? New stadiums? Which investments drive football club performance? Sport, Business and Management, 14(4), 540–556. https://doi.org/10.1108/SBM-10-2023-0124
 
-McHale, I. G., & Scarf, P. A. (2020). A CUSUM tool for retrospectively evaluating team performance: The case of the English Premier League. *International Journal of Forecasting, 36*(1), 118–128.
 
-Football-Data.co.uk. (n.d.). *Football results, statistics and data*. https://www.football-data.co.uk/
+Burdekin, R. C. K., & Franklin, M. (2015). TRANSFER SPENDING IN THE ENGLISH PREMIER LEAGUE: THE HAVES AND THE HAVE NOTS. National Institute Economic Review, 232(232), R4–R17. https://doi.org/10.1177/002795011523200102
 
-Transfermarkt. (n.d.). *Premier League transfer data*. https://www.transfermarkt.com/
 
-## Code and Transparency
+Beggs, C., & Bond, A. J. (2020). A CUSUM tool for retrospectively evaluating team performance: the case of the English Premier League. Sport, Business and Management, 10(3), 263–289. https://doi.org/10.1108/SBM-03-2019-0025
 
-The complete Python notebook containing the data collection, preparation, modeling, evaluation, and visualizations is available below.
+---
 
-**[View the Project 2 Jupyter Notebook](Project-2.ipynb)**
+## Project Summary
 
-### AI Usage Disclosure
+This project investigated whether transfer expenditure and previous-season team performance could predict a Premier League club's goal difference in the following season.
 
-I used ChatGPT (GPT-5.6 Luna) to help brainstorm and refine the research question, troubleshoot Python code, organize portions of the analysis, and improve the clarity of written explanations. I reviewed, tested, and interpreted the code and results myself. The final modeling decisions, conclusions, and submitted analysis were reviewed by me.
+The results indicate that previous team performance was more informative than transfer expenditure, while the overall predictive performance of the models remained limited. Linear Regression was selected as the strongest overall model based on RMSE and R², although it did not outperform the mean baseline on MAE.
+
+Overall, the analysis suggests that **transfer spending alone is not enough to accurately predict future Premier League performance**. Previous performance provides more useful information, but additional football-specific variables would likely be necessary to build a stronger predictive model.
+
