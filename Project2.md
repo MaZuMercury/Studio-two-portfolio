@@ -374,7 +374,7 @@ The notebook includes:
 
 ### AI Transparency
 
-Generative AI tools were used as a supporting resource during development of this project. AI assistance was used for explanations, debugging, organization, and clarification of Python and machine-learning concepts. The analysis, modeling decisions, interpretation of results, and final conclusions were reviewed and completed by me.
+AI Usage Disclosure: ChatGPT (GPT-5.6 Luna) was used as a supplementary tool during this project for troubleshooting Python code, clarifying programming and machine-learning concepts, organizing the project structure, and improving written explanations. All data preparation, modeling decisions, analysis, interpretation, and final conclusions were reviewed and completed by me.
 
 ---
 
