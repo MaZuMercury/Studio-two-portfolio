@@ -338,7 +338,7 @@ Cross-validation and hyperparameter tuning could also be used to evaluate whethe
 
 The complete Python analysis and modeling process is available in the project notebook.
 
-**[View the Project 2 Notebook](Project-2.ipynb)**
+[View the Project 2 Notebook](https://github.com/MaZuMercury/Studio-two-portfolio/blob/main/Project-2.ipynb)
 
 The notebook includes:
 
