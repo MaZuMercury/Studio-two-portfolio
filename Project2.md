@@ -1,3 +1,8 @@
+---
+layout: default
+title: Premier League Goal Difference Prediction
+---
+
 # ⚽ Predicting Premier League Goal Difference
 
 ## Problem Definition
