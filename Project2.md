@@ -104,6 +104,10 @@ These results suggest that previous team performance has a stronger relationship
 
 Transfer expenditure still showed a positive relationship with the target, but the relationship was considerably weaker.
 
+![Correlation Heatmap](images/project2-correlation-heatmap.png)
+
+*Figure 1. Correlation matrix showing relationships among the modeling variables.*
+
 ### Multicollinearity
 
 I also examined correlations between the predictor variables and calculated Variance Inflation Factors (VIF).
@@ -228,6 +232,10 @@ This means that Linear Regression did not outperform the baseline on every metri
 
 The relatively low R² also indicates that the models explain only a limited amount of the variation in future goal difference.
 
+![Actual vs. Predicted Goal Difference](images/project2-actual-vs-predicted.png)
+
+*Figure 2. Actual versus predicted goal difference for the Linear Regression model.*
+
 ---
 
 ## 8. Model Interpretation and Insights
@@ -253,6 +261,10 @@ The Random Forest feature importance results showed a similar pattern:
 This provides consistent evidence across the two models that previous team performance contained more predictive information than transfer expenditure.
 
 However, transfer spending still contributed information to the models. Its positive relationship with future goal difference suggests that financial investment may be related to future performance, but the relationship is not strong enough in this dataset to make transfer expenditure a highly accurate standalone predictor.
+
+![Random Forest Feature Importance](images/project2-feature-importance.png)
+
+*Figure 3. Random Forest feature importance for the three predictors.*
 
 ### Prediction Error Analysis
 
