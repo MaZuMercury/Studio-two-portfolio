@@ -32,6 +32,20 @@ This project examines whether factors such as population, GDP, and team size are
 
 ---
 
+## ⚽ Predicting Premier League Goal Difference
+
+**Research Question:**
+Can transfer spending and previous-season team performance predict a club's goal difference in the following Premier League season?
+
+This machine-learning project examines whether previous transfer expenditure and team performance can be used to predict future Premier League goal difference across the 2019–20 through 2024–25 seasons.
+
+**Skills:** Python · pandas · Data Collection · Data Cleaning · Data Visualization · Statistical Analysis · Machine Learning · Linear Regression · Random Forest · Model Evaluation
+
+[View Project](project2.md)
+
+
+---
+
 ## More Projects Coming Soon
 
 I'm continuing to build projects throughout my coursework and explore different areas of sports analytics and data science.
