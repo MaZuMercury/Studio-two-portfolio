@@ -41,7 +41,7 @@ This machine-learning project examines whether previous transfer expenditure and
 
 **Skills:** Python · pandas · Data Collection · Data Cleaning · Data Visualization · Statistical Analysis · Machine Learning · Linear Regression · Random Forest · Model Evaluation
 
-[View Project](project2.md)
+[View Project](Project2.md)
 
 
 ---
